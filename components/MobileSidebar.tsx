@@ -13,8 +13,9 @@ const MobileSidebar = () => {
     // mobile-sidebar: lg:hidden flex flex-col gap-5 // any header within: flex justify-between items-center border-b border-light-100 // any h1 within: text-base md:text-2xl font-bold text-dark-100
     <div className="mobile-sidebar wrapper">
         <header>
-            <Link to='/'>
-                <img 
+            {/* // Link is a glorified anchor tag and a under mobile-sidebar: flex items-center gap-1.5 py-10 */}
+            <Link to='/'> 
+                <img
                     src="/public/assets/icons/logo.svg"
                     alt="logo"
                     className="size-[30px]"
@@ -23,14 +24,14 @@ const MobileSidebar = () => {
             </Link>
 
             <button onClick={toggleSidebar}>
-                <img 
+                <img
                     src="/public/assets/icons/menu.svg"
                     className="size-7 mr-2"
                     />
             </button>
         </header>
 
-        <SidebarComponent 
+        <SidebarComponent
             width={270}
             ref={(Sidebar) => sidebar = Sidebar}
             created={() => sidebar.hide()}

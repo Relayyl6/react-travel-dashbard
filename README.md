@@ -85,3 +85,12 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 ---
 
 Built with ❤️ using React Router.
+
+clsx sample 
+```bash
+    import clsx from 'clsx';
+
+    const isActive = true;
+    const buttonClasses = clsx('button', { 'button--active': isActive, 'button--disabled': !isActive });
+    // buttonClasses will be "button button--active" if isActive is true, and "button button--disabled" if false
+```

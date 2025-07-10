@@ -1,4 +1,5 @@
 import type { AxisModel } from "@syncfusion/ej2-react-charts";
+import { formatDate } from "assets/lib/utils";
 
 export const sidebarItems = [
   {
@@ -140,3 +141,95 @@ export const RIGHT_CONFETTI = {
   angle: 135,
   origin: { x: 1, y: 1 },
 };
+
+
+export const user = {
+  name: 'Leonard'
+};
+
+export const users = [
+  {
+    id: 1,
+    name: "John Doe",
+    email: "john.doe@example.come",
+    imageUrl: "/public/assets/images/david.webp",
+    dateJoined: formatDate("2023-01-01"),
+    itineraryCreated: 10,
+    status: "user"
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    email: "jane.smith@example.come",
+    imageUrl: "/public/assets/images/david.webp",
+    dateJoined: formatDate("2023-01-02"),
+    itineraryCreated: 4,
+    status: "user"
+  },
+  {
+    id: 1,
+    name: "John Smith",
+    email: "john.smith@example.come",
+    imageUrl: "/public/assets/images/david.webp",
+    dateJoined: formatDate("2023-01-03"),
+    itineraryCreated: 8,
+    status: "admin"
+  }
+]
+
+export const dashboardStats = {
+  totalUsers: 12450,
+  usersJoined: {
+    currentMonth: 218,
+    lastMonth: 176
+  },
+  totalTrips: 3210,
+  tripsCreated: {
+    currentMonth: 150,
+    lastMonth: 250
+  },
+  userRole: {
+    total: 62,
+    currentMonth: 25,
+    lastMonth: 15
+  }
+};
+
+export const allTrips = [
+  {
+    id: 1,
+    name: "Tropical Rewind",
+    imageUrls: ["/public/assets/images/sample1.jpg"],
+    itinerary: [{ location: "Thailand" }],
+    tags: ["Adventure", "Culture"],
+    travelStyle: "Solo",
+    estimatedPrice: "$1,000",
+  },
+  {
+    id: 2,
+    name: "French Reverie",
+    imageUrls: ["/public/assets/images/sample2.jpg"],
+    itinerary: [{ location: "Paris" }],
+    tags: ["Relaxation", "Culinary"],
+    travelStyle: "Family",
+    estimatedPrice: "$2,000",
+  },
+  {
+    id: 3,
+    name: "Zen break",
+    imageUrls: ["/public/assets/images/sample3.jpg"],
+    itinerary: [{ location: "Japan" }],
+    tags: ["Shopping", "Luxury"],
+    travelStyle: "Couple",
+    estimatedPrice: "$3,000",
+  },
+  {
+    id: 3,
+    name: "Adventure in Westeros",
+    imageUrls: ["/public/assets/images/sample4.jpg"],
+    itinerary: [{ location: "Croatia" }],
+    tags: ["Historical", "Culture"],
+    travelStyle: "Friends",
+    estimatedPrice: "$4,000",
+  }
+]

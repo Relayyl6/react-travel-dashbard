@@ -5,7 +5,7 @@ import { sidebarItems } from "~/constants"
 const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
     // hardocding temporary user data
     const user = {
-        name: 'Leonard',
+        name: 'Leonard Oseghale',
         email: 'oseghaleleonard39@gmail.com',
         imageUrl: '/public/assets/images/david.webp'
     }
