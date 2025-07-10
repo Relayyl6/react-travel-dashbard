@@ -259,7 +259,7 @@
     }
   }
   .trip-card {
-    @apply shadow-300 bg-white rounded-[20px] flex-col w-full relative;
+    @apply shadow-300 bg-white rounded-[20px] flex flex-col w-full relative;
     img {
       @apply w-full h-[160px] rounded-t-xl object-cover aspect-video;
     }
@@ -453,7 +453,7 @@
     @apply absolute z-10 top-24 bg-white border border-gray-200 rounded-xl shadow-200 h-[250px] w-full md:max-w-[660px] overflow-hidden;
   }
   .tripCard-pill {
-    @apply bg-white py-1 px-2.5 w-fit rounded-[20px] absolute top-2.5 right-4 text-dark-100 text-sm font-semibold;
+    @apply bg-white/80 bg-gradient-to-b from-white/10 to-transparent backdrop-filter backdrop-blur-xl border-transparent shadow-inner py-1 px-2.5 w-fit rounded-[20px] absolute top-2.5 right-4 text-dark-100 text-sm font-semibold;
   }
   .price-pill {
     @apply bg-white py-0.5 px-2.5 w-fit rounded-[20px] top-2.5 right-4 text-dark-100 text-sm font-semibold;
