@@ -1,14 +1,21 @@
 import { ID, OAuthProvider, Query } from "appwrite";
 import { account, appwriteConfig, database } from "./client";
-import { data, redirect } from "react-router";
+import { redirect } from "react-router";
+
+const USER_ROLE = 'admin'
 
 export const loginWithGoogle = async () => {
     try {
+        const success = USER_ROLE === 'admin' ? 'http://localhost:5173/dashboard' : 'http://localhost:5173/sign-in';
+        const failure = 'http://localhost:5173/sign-in'
+
         account.createOAuth2Session(
             OAuthProvider.Google,
+            success,
+            failure
         )
     } catch (error) {
-        console.log('loginWithGoogle', error);
+        console.log('loginWithGoogle failed', error);
         return null;
     }
 }
@@ -32,7 +39,8 @@ export const getUser = async () => {
 }
 export const logoutUser = async () => {
     try {
-        await account.deleteSession('current');
+        await account.deleteSessions();
+        console.log('logout successful - all session deleted');
         return true;
     } catch (error) {
         console.log('logoutUser error:', error);

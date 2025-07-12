@@ -38,16 +38,16 @@ const Dashboard = () => {
 
         {/* // container; flex flex-col gap-9 mt-2.5 */}
         <section className="container">
-          <h1 className="text-xl font-semibold txt-dark-100">
+          <h1 className="text-xl font-semibold text-dark-100">
             Created Trips
           </h1>
           {/* // trip-grid: grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-7 */}
           <div className="trip-grid">
             {
               allTrips.slice(0, 4).map(
-                ({ id, name, imageUrls, itinerary, tags, travelStyle, estimatedPrice }, index) => (
+                ({ id, name, imageUrls, itinerary, tags, travelStyle, estimatedPrice }) => (
                   <TripCard
-                    key={id || index}
+                    key={id}
                     id={id.toString()}
                     name={name}
                     imageUrl={imageUrls[0]}

@@ -144,7 +144,9 @@ export const RIGHT_CONFETTI = {
 
 
 export const user = {
-  name: 'Leonard'
+  name: 'Leonard Oseghale',
+  email: 'oseghaleleonard39@gmail.com',
+  imageUrl: '/public/assets/images/david.webp'
 };
 
 export const users = [
@@ -224,7 +226,7 @@ export const allTrips = [
     estimatedPrice: "$3,000",
   },
   {
-    id: 3,
+    id: 4,
     name: "Adventure in Westeros",
     imageUrls: ["/public/assets/images/sample4.jpg"],
     itinerary: [{ location: "Croatia" }],
