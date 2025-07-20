@@ -1,9 +1,15 @@
 import { Header, StatsCard, TripCard } from "components";
-import { dashboardStats, user, users, allTrips } from "~/constants";
+import { getUser } from "~/appwrite/auth";
+import { dashboardStats, allTrips } from "~/constants";
+import type { Route } from './+types/Dashboard'
 
 const { totalUsers, usersJoined, totalTrips, tripsCreated, userRole } = dashboardStats;
 
-const Dashboard = () => {
+export const clientLoader = async () => await getUser();
+
+const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
+  const user = loaderData as unknown as User | null;
+
   return (
     // dashboard: flex flex-col gap-10 w-full  pb-20
     <main className="dashboard wrapper">

@@ -33,27 +33,30 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
                     sidebarItems.map(
                         ({ id, icon, label, href }) => (
                             <NavLink to={href} key={id}>
-                                {({ isActive }: { isActive: boolean }) => (
-                                    <div className={cn('group nav-item', {'bg-primary-100 !text-white': isActive})} onClick={handleClick}> 
-                                        <img
-                                            src={icon}
-                                            alt="label"
-                                            className={`group-hover:brightness-0 size-5 group-hover:invert ${isActive ? 'brightness-0 invert' : 'text-dark-200' }`}/>
-                                        {label}
-                                    </div>
-                                )}
+                                {
+                                    ({ isActive }: { isActive: boolean }) => (
+                                        <div className={cn('group nav-item', {'bg-primary-100 !text-white': isActive})} onClick={handleClick}> 
+                                            <img
+                                                src={icon}
+                                                alt="label"
+                                                className={`group-hover:brightness-0 size-5 group-hover:invert ${isActive ? 'brightness-0 invert' : 'text-dark-200' }`}/>
+                                            {label}
+                                        </div>
+                                    )
+                                }
                             </NavLink>
                         )
                     )
                 }
             </nav>
-            {/* // nav-item: flex items-center text-xs md:text-lg font-normal cursor-pointer gap-2.5 py-[18px] px-3.5 rounded-lg text-dark-200 hover:bg-primary-100 hover:text-white */}
+            {/* // nav-item: flex items-cent```er text-xs md:text-lg font-normal cursor-pointer gap-2.5 py-[18px] px-3.5 rounded-lg text-dark-200 hover:bg-primary-100 hover:text-white */}
             {/* note // the NavLink component automatically provides an object to its child function  which contains information about the current navigation state. // this is where isAcive is being destructured from */}
             {/* // nav-footer: flex items-center gap-2.5 pb-8 // any img within: size-10 rounded-full aspect-square // any article within: flex flex-col gap-[2px] max-w-[115px] */}
             <footer className="nav-footer">  
-                <img 
-                    src={user?.imageUrl || '/public/assets/images/david.webp'}
-                    alt={user?.name || 'David'}/>
+                <img
+                    src={user?.imageUrl || null}
+                    alt={user?.name || 'David'}
+                    referrerPolicy="no-referrer"/>
 
                 <article>
                     {/* // from nav-footer: text-sm md:text-base font-semibold text-dark-200 truncate */}

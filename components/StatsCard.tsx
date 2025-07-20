@@ -20,7 +20,7 @@ const StatsCard = ({ headerTitle, total, currentMonthCount, lastMonthCount }: St
           </h2>
           <div className="flex items-center gap-2">
             <figure className="flex items-center gap-1">
-              <img 
+              <img
                 src={`/public/assets/icons/${isDecrement ? 'arrow-down-red.svg' : 'arrow-up-green.svg'}`}
                 className="size-5"
                 alt="arrow"

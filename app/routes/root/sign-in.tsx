@@ -67,12 +67,12 @@ const SignIn = () => {
                     <ButtonComponent
                         type='button'
                         iconCss="e-search-icon"
-                        className='button-class !h-11 !w-full'
+                        className='button-class !h-11 !w-fit'
                         onClick={loginWithGoogle}
                         >
                         <img
                             src='/public/assets/icons/google.svg'
-                            className='size-5'
+                            className='size-5 mr-0'
                             alt='google'
                         />
                         <span className='p-18-semibold text-white'>Sign in with Google</span>

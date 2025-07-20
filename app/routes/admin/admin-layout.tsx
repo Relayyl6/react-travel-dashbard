@@ -10,14 +10,14 @@ import { getExistingUser, storeUserData } from '~/appwrite/auth';
 export async function clientLoader() {
   try {
       const session = await account.getSession('current');
-      if (!session) { 
-        console.log('No active sessions found')
-        return redirect('/sign-in');
-      }
+      // if (!session) {
+      //   console.log('No active sessions found')
+      //   return redirect('/sign-in');
+      // }
 
       const user = await account.get();
 
-      if (!user || !user.$id) return redirect('/sign-in');
+      // if (!user || !user.$id) return redirect('/sign-in');
 
       const existingUser = await getExistingUser(user.$id)
 

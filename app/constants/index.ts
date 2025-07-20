@@ -169,7 +169,7 @@ export const users = [
     status: "user"
   },
   {
-    id: 1,
+    id: 3,
     name: "John Smith",
     email: "john.smith@example.come",
     imageUrl: "/public/assets/images/david.webp",
