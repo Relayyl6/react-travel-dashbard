@@ -4,10 +4,15 @@ import { redirect } from "react-router";
 
 export const loginWithGoogle = async () => {
     try {
+        // Add this before login
+        document.cookie = 'g_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        document.cookie = 'github_oauth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
         account.createOAuth2Session(
             OAuthProvider.Google,
             'http://localhost:5173/dashboard',
             'http://localhost:5173/sign-in',
+            ['prompt=consent', 'access_type=offline'],
             // '${`window.location.origin`}/404'
         )
     } catch (error) {
@@ -40,6 +45,9 @@ export const getUser = async () => {
 export const logoutUser = async () => {
     try {
         await account.deleteSession('current');
+        document.cookie.split(';').forEach(cookie => {
+            document.cookie = cookie.replace(/^ +/, '').split('=')[0] + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+        });
         console.log('logout successful - all session deleted');
         return true;
     } catch (error) {
@@ -163,3 +171,36 @@ export const getAllUsers = async (limit: number, offset: number) => {
         return { users: [], total: 0 }
     }
 }
+
+export const signUpWithGoogleEmail = async (email: string = "", password: string, name: string) => {
+    try {
+        const user = await account.create(
+            ID.unique(), // Auto-generate user ID
+            email,
+            password,
+            name
+        );
+        console.log("User registered:", user);
+        return user;
+    } catch (error) {
+        console.error("Registration failed:", error);
+        throw error;
+    }
+};
+
+export const logInWithGoogleEmail = async (email: string, password: string, name: string) => {
+    try {
+        if (!email) {
+            const session = await account.createSession(name, password);
+            console.log("Logged in:", session);
+            return session;
+        } else if (!name) {
+            const session = await account.createEmailPasswordSession(email, password);
+            console.log("Logged in:", session);
+            return session;
+        }
+    } catch (error) {
+        console.error("Login failed:", error);
+        throw error;
+    }
+};
