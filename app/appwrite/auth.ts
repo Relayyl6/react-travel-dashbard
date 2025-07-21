@@ -12,7 +12,7 @@ export const loginWithGoogle = async () => {
             OAuthProvider.Google,
             'http://localhost:5173/dashboard',
             'http://localhost:5173/sign-in',
-            ['prompt=consent', 'access_type=offline'],
+            // ['prompt=consent', 'access_type=offline'],
             // '${`window.location.origin`}/404'
         )
     } catch (error) {
@@ -172,7 +172,7 @@ export const getAllUsers = async (limit: number, offset: number) => {
     }
 }
 
-export const signUpWithGoogleEmail = async (email: string = "", password: string, name: string) => {
+export const signUpWithGoogleEmail = async (email: string, password: string, name: string = "") => {
     try {
         const user = await account.create(
             ID.unique(), // Auto-generate user ID
