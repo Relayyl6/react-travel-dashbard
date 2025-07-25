@@ -84,7 +84,13 @@ export const interests = [
 
 export const budgetOptions = ["Budget", "Mid-range", "Luxury", "Premium"];
 
-export const groupTypes = ["Solo", "Couple", "Family", "Friends", "Business"];
+export const groupTypes = [
+  "Solo",
+  "Couple",
+  "Family",
+  "Friends",
+  "Business"
+];
 
 export const footers = ["Terms & Condition", "Privacy Policy"];
 

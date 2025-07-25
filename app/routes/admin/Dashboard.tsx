@@ -11,7 +11,7 @@ const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
   const user = loaderData as unknown as User | null;
 
   return (
-    // dashboard: flex flex-col gap-10 w-full  pb-20
+    // dashboard: flex flex-col gap-10 w-full pb-20
     <main className="dashboard wrapper">
         <Header
           title={`Welcome ${user?.name ?? 'Guest'} 👋`}
