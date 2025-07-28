@@ -6,9 +6,9 @@ import { comboBoxItems, selectItems } from '~/constants';
 import { cn, formatKey } from '../../../assets/lib/utils';
 import { useState } from 'react';
 import { world_map } from '~/constants/world_map';
-import { MapsComponent, LayersDirective, Layerdirective } from '@syncfusion/ej2-react-grids'
+import { MapsComponent, LayersDirective, LayerDirective } from '@syncfusion/ej2-react-maps'
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
-
+import { account } from '~/appwrite/client';
 
 export const loader = async () => {
     const response = await axios.get('https://www.apicountries.com/countries');
@@ -66,17 +66,41 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-    // try to implement a dynamic function (ask AI) to generate a logic that specifies which field is actually falsy
+    // TODO: update form data to include specification of missing fields
     if (!formData.country || !formData.travelStyle || !formData.interest || !formData.budget || !formData.groupType) {
-      setError("Please provide valeus for all fields");
+    const missing = [
+      !formData.country && 'Country',
+      !formData.travelStyle && 'Travel style', 
+      !formData.interest && 'Interest',
+      !formData.budget && 'Budget',
+      !formData.groupType && 'Group type'
+    ].filter(Boolean).join(', ');
+
+    setError(`Please provide values for: ${missing}`);
+    setLoading(false);
+    return;
+    }
+
+    if (formData.duration < 1 || formData.duration > 10 ) {
+      setError("Duration must be between 1 to 10 days");
       setLoading(false);
       return;
     }
 
-    if (formData.duration < 1 || formData.duration > 10 ) {
-      setError("Duration muust be between 1 to 10 days");
+    const user = await account.get();
+    if (!user.$id) {
+      console.error("User not authenticated");
       setLoading(false);
       return;
+    }
+
+    try {
+      console.log('user', user);
+      console.log('formData', formData)
+    } catch(error) {
+      console.error("Error generating trip", error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -96,11 +120,11 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
               dataSource={countryData}
               fields={{ text: 'name', value: 'value' }}
               placeholder='Select a Country'
-              className='!p-3.5 !.border w-full !border-light-400 !-rounded-xl !text-base !text-dark-300 !font-normal'
+              className='!p-3.5 !border w-full !border-light-400 !rounded-xl !text-base !text-dark-300 !font-normal'
               itemTemplate={(data: any) => (
                 <div className="flex flex-row items-center gap-0.5">
-                  <img src={data.flag} className="!size-6 !rounded-xl !ml-2 !items-center !flex !jutify-center"/>
-                  <span>{data.name}</span>
+                  <img src={data.flag} className="!size-6 !rounded-xl !ml-2 !items-center !flex !justify-center"/>
+                  <span className="!text-black">{data.name}</span>
                 </div>
               )}
               change={(event: { value: string | undefined }) => {
@@ -112,16 +136,16 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
               filtering={(event) => {
                 const query = event.text.toLowerCase();
                 event.updateData(
-                  countries.filter((country) => country.name.toLowerCase().includes(query)).map((country) => ({
+                  countryData.filter((country) => country.name.toLowerCase().includes(query)).map((country) => ({
                     flag: country.flag,
-                    text: country.name,
+                    name: country.name,
                     value: country.value,
                   })))
               }}
             />
           </div>
 
-          <div>
+          <div className='w-full flex flex-col gap-2.5 px-6 relative'>
             <label htmlFor="duration">Duration</label>
             <input
               id="duration"
@@ -134,8 +158,8 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
 
           {
             selectItems.map((key) => (
-              <div key={key}>
-                <label htmlFor={key}>formatKey(key)</label>
+              <div key={key} className='w-full flex flex-col gap-2.5 px-6 relative'>
+                <label htmlFor={key}>{formatKey(key)}</label>
 
                 <ComboBoxComponent
                   id={key}
@@ -165,12 +189,12 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
             ))
           }
 
-          <div>
+          <div className='w-full flex flex-col gap-2.5 px-6 relative'>
             <label htmlFor="location">Location on the world map</label>
 
             <MapsComponent>
               <LayersDirective>
-                <LayerDirective 
+                <LayerDirective
                   dataSource={mapData}
                   shapeData={world_map}
                   shapePropertyPath="name"
