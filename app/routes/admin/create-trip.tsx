@@ -9,6 +9,7 @@ import { world_map } from '~/constants/world_map';
 import { MapsComponent, LayersDirective, LayerDirective } from '@syncfusion/ej2-react-maps'
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import { account } from '~/appwrite/client';
+import { useNavigate } from 'react-router';
 
 export const loader = async () => {
     const response = await axios.get('https://www.apicountries.com/countries');
@@ -29,6 +30,7 @@ export const loader = async () => {
 
 const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
   const countries = loaderData as Country[];
+  const navigate = useNavigate();
 
   const [ formData, setFormData ] = useState<TripFormData>({
     country: countries[0]?.name || '',
@@ -95,8 +97,24 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
     }
 
     try {
-      console.log('user', user);
-      console.log('formData', formData)
+      const response = await fetch("/api/create-trip", {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body: JSON.stringify({
+          country: formData.country,
+          numberOfDays: formData.duration,
+          interest: formData.interest,
+          budget: formData.budget,
+          travelStyle: formData.travelStyle,
+          groupType: formData.groupType,
+          userId: user.$id
+        })
+      });
+
+      const result: CreateTripResponse = await response.json();
+
+      if (result?.id) navigate(`/trips/${result.id}`)
+      else console.error("Failed to generate a trip")
     } catch(error) {
       console.error("Error generating trip", error)
     } finally {
@@ -151,7 +169,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
               id="duration"
               name="duration"
               placeholder="Enter a number of days"
-              className="p-3.5 border border-light-400 rounded-xl text-bse text-dark-300 font-normal placeholder:text-gray-100"
+              className="p-3.5 border border-light-400 rounded-xl text-base text-dark-300 font-normal placeholder:text-gray-100"
               onChange={(event) => handleChange("duration", Number(event.target.value))}
             />
           </div>
@@ -219,7 +237,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
 
           <footer className='px-6 w-full'>
             <ButtonComponent
-              type="button"
+              type="submit"
               className='!h-12 !w-full !bg-primary-100 !px-4 !rounded-lg !flex !items-center !justify-center !mx-auto !gap-1.5 !shadow-none'
               disabled={loading}>
                 <img

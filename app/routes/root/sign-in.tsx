@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, redirect } from 'react-router'
 import { loginWithGoogle } from '~/appwrite/auth'
 import { account } from '~/appwrite/client';
-// import { signUpWithEmail } from 
+import { SignUpWithEmail } from 'components'
 
 
 export async function clientLoader() {
@@ -36,6 +36,10 @@ const SignIn = () => {
 
     const [ showEmailSignUp, setShowEmailSignUp ] = useState(false);
 
+    const options = () => {
+        setShowEmailSignUp(!showEmailSignUp)
+    }
+
   return (
     <main className='auth'>
         <section className='size-full glassmorphism flex-center px-6'>
@@ -52,12 +56,14 @@ const SignIn = () => {
                 </header>
 
                 <article>
-                    {/* {showEmailSignUp ? (
-                        //     <SignUpWithEmail />
-                        // ) : (
-                        //     <> */}
-                    <h2 className='p-28-semibold text-dark-100 text-center'>Start your Travel Journey</h2>
-                    <p className='p-18-regular text-center text-gray-100 !leading-7'>Sign in with google to manage destinatiosn itineraries, and user activity with ease</p>
+                    {
+                        !showEmailSignUp ? (
+                            <>
+                                <h2 className='p-28-semibold text-dark-100 text-center'>Start your Travel Journey</h2>
+                                <p className='p-18-regular text-center text-gray-100 !leading-7'>Sign in with google to manage destinatiosn itineraries, and user activity with ease</p>
+                            </>
+                        ) : <SignUpWithEmail />
+                    }
                     <ButtonComponent
                         type='button'
                         iconCss="e-search-icon"
@@ -73,12 +79,12 @@ const SignIn = () => {
                     </ButtonComponent>
                     <p className='text-dark-200 text-xs font-normal pt-1 p-12-regular text-center'>
                         or {" "}
-                        <button onClick={() => setShowEmailSignUp(true)} className="text-primary-100 underline cursor-pointer"> 
-                            <span className="rounded-lg uppercase py-1 px-2 bg-primary-100 underline">
-                                sign in
+                        <button onClick={options} className="text-primary-100 underline cursor-pointer"> 
+                            <span className="rounded-lg uppercase py-1 px-2 bg-primary-100 underline text-white ">
+                                { showEmailSignUp ? "Sign In" : "Sign Up" }
                             </span>
                         </button>
-                        with Email
+                        {" "}with your Email
                     </p>
                     {/* </> */}
                 </article>

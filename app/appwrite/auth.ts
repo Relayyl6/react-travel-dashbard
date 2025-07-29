@@ -5,8 +5,8 @@ import { redirect } from "react-router";
 export const loginWithGoogle = async () => {
     try {
         // Add this before login
-        document.cookie = 'g_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        document.cookie = 'github_oauth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        // document.cookie = 'g_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        // document.cookie = 'github_oauth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
 
         account.createOAuth2Session(
             OAuthProvider.Google,

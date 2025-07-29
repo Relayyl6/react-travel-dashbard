@@ -10,9 +10,9 @@ export const formatDate = (dateString: string): string => {
   return dayjs(dateString).format("MMMM DD, YYYY");
 };
 
-export function parseMarkdownToJson(markdownText: string): unknown | null {
+export function parseMarkdownToJson(markdownText: string | undefined): unknown | null {
   const regex = /```json\n([\s\S]+?)\n```/;
-  const match = markdownText.match(regex);
+  const match = markdownText?.match(regex);
 
   if (match && match[1]) {
     try {

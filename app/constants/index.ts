@@ -61,6 +61,14 @@ export const chartOneData: object[] = [
   },
 ];
 
+export const groupTypes = [
+  "Solo",
+  "Couple",
+  "Family",
+  "Friends",
+  "Business"
+];
+
 export const travelStyles = [
   "Relaxed",
   "Luxury",
@@ -82,17 +90,12 @@ export const interests = [
   "Local Experiences",
 ];
 
-export const budgetOptions = ["Budget", "Mid-range", "Luxury", "Premium"];
-
-export const groupTypes = [
-  "Solo",
-  "Couple",
-  "Family",
-  "Friends",
-  "Business"
+export const budgetOptions = [
+  "Budget",
+  "Mid-range",
+  "Luxury",
+  "Premium"
 ];
-
-export const footers = ["Terms & Condition", "Privacy Policy"];
 
 export const selectItems = [
   "groupType",
@@ -107,6 +110,9 @@ export const comboBoxItems = {
   interest: interests,
   budget: budgetOptions,
 } as Record<keyof TripFormData, string[]>;
+
+
+export const footers = ["Terms & Condition", "Privacy Policy"];
 
 export const userXAxis: AxisModel = { valueType: "Category", title: "Day" };
 export const useryAxis: AxisModel = {

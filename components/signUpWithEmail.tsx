@@ -6,30 +6,30 @@ import { account } from '~/appwrite/client';
 import { useForm } from 'react-hook-form';
 
 
-const signUpWithEmail = () => {
+const SignUpWithEmail = () => {
 
     const { register, handleSubmit, formState : { errors } } = useForm()
 
-  return (
-    <div className='flex bg-white flex-col border border-light-100 md:max-w-[510px] rounded-[20px] py-10 px-6 w-full'>
-        <header className='flex items-center gap-1.5 justify-center'>
-            <Link to="/" className='flex flex-row border-b border-dark-100'>
-                <img
-                    src='/public/assets/icons/logo.svg'
-                    alt="logo"
-                    className='size-[80px]'
-                />
-                <h1 className='p-28-bold text-dark-100'>Tour Leroy</h1>
-            </Link>
-        </header>
+    const buttonAction = () => {
+        signUpWithGoogleEmail(register('email').value, register('password').value, register('username').value)
+    }
 
-        <form onSubmit={handleSubmit(signUpWithGoogleEmail)}>
-                <div className="flex flex-col gap-4">
-                    <div className='flex flex-row items-center gap-2'>
+  return (
+    <div className='flex border border-light-100 py-10 px-6 w-full'>
+        <form onSubmit={handleSubmit(buttonAction)}>
+                <div className="flex flex-col gap-4 items-center">
+                    <div className='flex flex-col items-center gap-2'>
                         <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+                        <input
+                            type="username"
+                            id="username"
+                            {...register('username', { required: 'Username is required' })}
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+                            placeholder="Enter your email"
+                        />
                     </div>
-                    <div className="flex flex-row items-center gap-2">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                    <div className="flex flex-col items-center gap-2 w-full">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email: {' '}</label>
                         <input
                             type="email"
                             id="email"
@@ -43,8 +43,8 @@ const signUpWithEmail = () => {
                             </p>
                         }
                     </div>
-                    <div className="flex flex-row items-center gap-2">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                    <div className="flex flex-col items-center gap-2 w-full">
+                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password: {' '}</label>
                         <input
                             type="password"
                             id="password"
@@ -67,11 +67,9 @@ const signUpWithEmail = () => {
                     <ButtonComponent
                         type='button'
                         iconCss="e-search-icon"
-                        className='button-class !h-11 !w-fit'
-                        onClick={signUpWithGoogleEmail}
+                        className='!bg-primary-100 !px-4 !rounded-lg !flex !items-center !justify-center !mx-auto !gap-1.5 !shadow-none !h-11 !w-fit'
                         >
-                        <h2 className='font-bold text-dark-200'>Sign Up</h2>
-                        <span className='p-18-semibold text-white'>Sign Up</span>
+                        <h2 className='font-bold text-dark-200'>SignIn</h2>
                     </ButtonComponent>
                 </div>
             </form>
