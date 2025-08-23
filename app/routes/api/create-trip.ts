@@ -5,7 +5,7 @@ import { appwriteConfig, database } from "~/appwrite/client";
 import { ID } from "appwrite";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-    const { 
+    const {
         country,
         numberOfDays,
         interest,
@@ -176,7 +176,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
             // Handle case where no images are returned
         }
 
-        const imageUrls = (await imageResponse.json()).results.slice(0, 3).map((result: any) => result.urls?.regular || null);
+        const imageUrl = jsonResponse.results.slice(0, 3).map((result: any) => result.urls?.regular || null);
 
         const result = await database.createDocument(
             appwriteConfig.databaseId,
@@ -185,7 +185,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
             {
                 tripDetail: JSON.stringify(trip),
                 createdAt: new Date().toISOString(),
-                imageUrls,
+                imageUrl,
                 userId
             }
         )

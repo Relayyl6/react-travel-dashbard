@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, redirect } from 'react-router'
 import { loginWithGoogle } from '~/appwrite/auth'
 import { account } from '~/appwrite/client';
-import { SignUpWithEmail } from 'components'
+import { SignUpWithEmail } from 'components';
 
 
 export async function clientLoader() {
@@ -12,7 +12,7 @@ export async function clientLoader() {
         const user = await account.get();
         console.log('ClientLoader: User found:', user);
 
-        if (user.$id) return redirect('/dashboard'); // Change to your dashboard route
+        if (user.$id) return redirect('/dashboard');
     } catch (error: any) {
         if (error.code === 401) {
             console.log('User not authenticated, staying on sign-in page');
@@ -33,6 +33,8 @@ const SignIn = () => {
     // useEffect(() => {
     //     debugAppwriteConnection()
     // }, []);
+
+    console.log("Sign in component loading")
 
     const [ showEmailSignUp, setShowEmailSignUp ] = useState(false);
 
@@ -61,22 +63,30 @@ const SignIn = () => {
                             <>
                                 <h2 className='p-28-semibold text-dark-100 text-center'>Start your Travel Journey</h2>
                                 <p className='p-18-regular text-center text-gray-100 !leading-7'>Sign in with google to manage destinatiosn itineraries, and user activity with ease</p>
+
+                                <ButtonComponent
+                                    type='button'
+                                    iconCss="e-search-icon"
+                                    className='button-class !h-11 !w-fit'
+                                    onClick={loginWithGoogle}
+                                    >
+                                        <img
+                                            src='/public/assets/icons/google.svg'
+                                            className='size-5 mr-0'
+                                            alt='google'
+                                        />
+                                    <span className='p-18-semibold text-white'>Sign in with Google</span>
+                                </ButtonComponent>
                             </>
                         ) : <SignUpWithEmail />
+                        // ) : (
+                        //     <div style={{ padding: '20px', border: '1px solid #ccc' }}>
+                        //         {/* Simplified signup form for testing */}
+                        //         <h3>Email Signup Form</h3>
+                        //         <p>SignUpWithEmail component would go here</p>
+                        //     </div>
+                        // )
                     }
-                    <ButtonComponent
-                        type='button'
-                        iconCss="e-search-icon"
-                        className='button-class !h-11 !w-fit'
-                        onClick={loginWithGoogle}
-                        >
-                        <img
-                            src='/public/assets/icons/google.svg'
-                            className='size-5 mr-0'
-                            alt='google'
-                        />
-                        <span className='p-18-semibold text-white'>Sign in with Google</span>
-                    </ButtonComponent>
                     <p className='text-dark-200 text-xs font-normal pt-1 p-12-regular text-center'>
                         or {" "}
                         <button onClick={options} className="text-primary-100 underline cursor-pointer"> 

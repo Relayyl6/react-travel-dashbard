@@ -172,18 +172,36 @@ export const getAllUsers = async (limit: number, offset: number) => {
     }
 }
 
-export const signUpWithGoogleEmail = async (email: string, password: string, name: string = "") => {
+export const signUpWithGoogleEmail = async (email: string, password: string, name: string) => {
+    // const navigate = useNavigate();
     try {
-        const user = await account.create(
+        const user = await account.get();
+        if (user) redirect('/dashboard')
+        console.log({
+            id: ID.unique(), // Auto-generate user ID
+            email,
+            password,
+            name
+        });
+        await account.create(
             ID.unique(), // Auto-generate user ID
             email,
             password,
             name
         );
-        console.log("User registered:", user);
-        return user;
-    } catch (error) {
-        console.error("Registration failed:", error);
+        console.log("Account initiated")
+        await account.createEmailPasswordSession(
+            email,
+            password,
+        )
+        console.log("User registered:");
+        redirect('/dashboard')
+    } catch (error: any) {
+        console.error("Registration failed:", {
+            message: error.message,
+            code: error.code,
+            response: error.response,
+        });
         throw error;
     }
 };

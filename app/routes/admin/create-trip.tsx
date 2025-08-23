@@ -99,7 +99,9 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
     try {
       const response = await fetch("/api/create-trip", {
         method: 'POST',
-        headers: { 'Content-Type' : 'application/json' },
+        headers: {
+          'Content-Type' : 'application/json'
+        },
         body: JSON.stringify({
           country: formData.country,
           numberOfDays: formData.duration,
@@ -117,7 +119,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
       else console.error("Failed to generate a trip")
     } catch(error) {
       console.error("Error generating trip", error)
-    } finally {
+    } finally {0
       setLoading(false)
     }
   }
@@ -175,8 +177,8 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
           </div>
 
           {
-            selectItems.map((key) => (
-              <div key={key} className='w-full flex flex-col gap-2.5 px-6 relative'>
+            selectItems.map((key, index) => (
+              <div key={key || index} className='w-full flex flex-col gap-2.5 px-6 relative'>
                 <label htmlFor={key}>{formatKey(key)}</label>
 
                 <ComboBoxComponent
@@ -243,6 +245,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
                 <img
                   src={`/public/assets/icons/${loading ? "loader.svg" : "magic-star.svg"}`}
                   className={cn('size-5', { 'animate-spin': loading })}
+                  alt="loader..."
                 />
                 <span className="p-16-semibold text-white">
                   {
