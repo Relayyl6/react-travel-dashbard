@@ -143,7 +143,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
               className='!p-3.5 !border w-full !border-light-400 !rounded-xl !text-base !text-dark-300 !font-normal'
               itemTemplate={(data: any) => (
                 <div className="flex flex-row items-center gap-0.5">
-                  <img src={data.flag} className="!size-6 !rounded-xl !ml-2 !items-center !flex !justify-center"/>
+                  <img src={data.flag} alt="country flag" className="!size-6 !rounded-xl !ml-2 !items-center !flex !justify-center"/>
                   <span className="!text-black">{data.name}</span>
                 </div>
               )}

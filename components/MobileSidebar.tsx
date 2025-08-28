@@ -23,10 +23,11 @@ const MobileSidebar = () => {
                 <h1>Tour Leroy</h1>
             </Link>
 
-            <button onClick={toggleSidebar}>
+            <button onClick={toggleSidebar} type="button">
                 <img
                     src="/public/assets/icons/menu.svg"
                     className="size-7 mr-2"
+                    alt="Something"
                     />
             </button>
         </header>

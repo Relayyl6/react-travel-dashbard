@@ -171,6 +171,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         }
 
         const jsonResponse = await imageResponse.json();
+        
         if (!jsonResponse.results) {
             console.warn("No images found");
             // Handle case where no images are returned
