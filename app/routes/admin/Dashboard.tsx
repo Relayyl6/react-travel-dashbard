@@ -12,7 +12,7 @@ const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
 
   return (
     // dashboard: flex flex-col gap-10 w-full pb-20
-    <main className="dashboard wrapper">
+    <main className="flex flex-col gap-10 pb-20 w-full max-w-7xl mx-auto px-4 lg:px-8">
         <Header
           title={`Welcome ${user?.name ?? 'Guest'} 👋`}
           description="Track activity trends and popular destinations in real time"

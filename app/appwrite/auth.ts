@@ -176,7 +176,6 @@ export const signUpWithGoogleEmail = async (email: string, password: string, nam
     // const navigate = useNavigate();
     try {
         const user = await account.get();
-        if (user) redirect('/dashboard')
         console.log({
             id: ID.unique(), // Auto-generate user ID
             email,

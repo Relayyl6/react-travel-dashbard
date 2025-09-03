@@ -158,7 +158,7 @@ export const RIGHT_CONFETTI = {
 export const user = {
   name: 'Leonard Oseghale',
   email: 'oseghaleleonard39@gmail.com',
-  imageUrl: '/public/assets/images/david.webp'
+  imageUrl: '/david.webp'
 };
 
 export const users = [
@@ -166,7 +166,7 @@ export const users = [
     id: 1,
     name: "John Doe",
     email: "john.doe@example.come",
-    imageUrl: "/public/assets/images/david.webp",
+    imageUrl: "/david.webp",
     dateJoined: formatDate("2023-01-01"),
     itineraryCreated: 10,
     status: "user"
@@ -175,7 +175,7 @@ export const users = [
     id: 2,
     name: "Jane Smith",
     email: "jane.smith@example.come",
-    imageUrl: "/public/assets/images/david.webp",
+    imageUrl: "/david.webp",
     dateJoined: formatDate("2023-01-02"),
     itineraryCreated: 4,
     status: "user"
@@ -184,7 +184,7 @@ export const users = [
     id: 3,
     name: "John Smith",
     email: "john.smith@example.come",
-    imageUrl: "/public/assets/images/david.webp",
+    imageUrl: "/david.webp",
     dateJoined: formatDate("2023-01-03"),
     itineraryCreated: 8,
     status: "admin"
@@ -213,7 +213,7 @@ export const allTrips = [
   {
     id: 1,
     name: "Tropical Rewind",
-    imageUrls: ["/public/assets/images/sample1.jpg"],
+    imageUrls: ["/sample1.jpg"],
     itinerary: [{ location: "Thailand" }],
     tags: ["Adventure", "Culture"],
     travelStyle: "Solo",
@@ -222,7 +222,7 @@ export const allTrips = [
   {
     id: 2,
     name: "French Reverie",
-    imageUrls: ["/public/assets/images/sample2.jpg"],
+    imageUrls: ["/sample2.jpg"],
     itinerary: [{ location: "Paris" }],
     tags: ["Relaxation", "Culinary"],
     travelStyle: "Family",
@@ -231,7 +231,7 @@ export const allTrips = [
   {
     id: 3,
     name: "Zen break",
-    imageUrls: ["/public/assets/images/sample3.jpg"],
+    imageUrls: ["/sample3.jpg"],
     itinerary: [{ location: "Japan" }],
     tags: ["Shopping", "Luxury"],
     travelStyle: "Couple",
@@ -240,7 +240,7 @@ export const allTrips = [
   {
     id: 4,
     name: "Adventure in Westeros",
-    imageUrls: ["/public/assets/images/sample4.jpg"],
+    imageUrls: ["/sample4.jpg"],
     itinerary: [{ location: "Croatia" }],
     tags: ["Historical", "Culture"],
     travelStyle: "Friends",

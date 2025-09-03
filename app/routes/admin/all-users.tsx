@@ -14,7 +14,7 @@ const AllUsers = ({ loaderData }: Route.ComponentProps) => {
   const { users, total } = loaderData;
 
   return (
-    <main className="all-users wrapper">
+    <main className="w-full min-h-screen flex flex-col gap-10 max-w-7xl mx-auto px-4 lg:px-8">
       <Header
         title="Manage Users"
         description="Filter, sort and access detailed user profiles"
@@ -32,7 +32,7 @@ const AllUsers = ({ loaderData }: Route.ComponentProps) => {
               template={(props: UserData) => (
                 <div className="flex items-center gap-1.5 px-1.4">
                   <img
-                    src={props.imageUrl || "/public/assets/images/david.webp"}
+                    src={props.imageUrl || "/david.webp"}
                     alt="user"
                     className="rounded-full size-8 aspect-square"
                     referrerPolicy="no-referrer"
