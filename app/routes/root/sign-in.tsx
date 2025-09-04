@@ -49,7 +49,7 @@ const SignIn = () => {
                 <header className='header'>
                     <Link to='/'>
                         <img
-                            src='/public/assets/icons/logo.svg'
+                            src='/assets/icons/logo.svg'
                             alt='logo'
                             className='size-[30px]'
                         />
@@ -71,7 +71,7 @@ const SignIn = () => {
                                     onClick={loginWithGoogle}
                                     >
                                         <img
-                                            src='/public/assets/icons/google.svg'
+                                            src='/assets/icons/google.svg'
                                             className='size-5 mr-0'
                                             alt='google'
                                         />
@@ -94,7 +94,9 @@ const SignIn = () => {
                                 { showEmailSignUp ? "Sign In" : "Sign Up" }
                             </span>
                         </button>
-                        {" "}with your Email
+                        {" "}with your {
+                            !showEmailSignUp ? "Email" : "Google"
+                        }
                     </p>
                     {/* </> */}
                 </article>

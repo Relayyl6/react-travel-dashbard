@@ -1,9 +1,18 @@
 import React from 'react'
 
-const infoPhil = () => {
+const InfoPhil = ({ text, image }: InfoPillProps) => {
   return (
-    <div>infoPhil</div>
+    <figure className='flex items-center gap-1.5'>
+      <img
+        src={image}
+        alt="text"
+        className='size-5'
+      />
+      <figcaption className='text-sm mg:text-lg font-normal truncate text-gray-100'>
+        {text}
+      </figcaption>
+    </figure>
   )
 }
 
-export default infoPhil
+export default InfoPhil

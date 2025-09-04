@@ -16,7 +16,7 @@ const MobileSidebar = () => {
             {/* // Link is a glorified anchor tag and a under mobile-sidebar: flex items-center gap-1.5 py-10 */}
             <Link to='/'> 
                 <img
-                    src="/public/assets/icons/logo.svg"
+                    src="/logo.svg"
                     alt="logo"
                     className="size-[30px]"
                 />
@@ -25,7 +25,7 @@ const MobileSidebar = () => {
 
             <button onClick={toggleSidebar} type="button">
                 <img
-                    src="/public/assets/icons/menu.svg"
+                    src="/menu.svg"
                     className="size-7 mr-2"
                     alt="Something"
                     />

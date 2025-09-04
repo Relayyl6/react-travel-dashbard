@@ -213,7 +213,7 @@ export const allTrips = [
   {
     id: 1,
     name: "Tropical Rewind",
-    imageUrls: ["/sample1.jpg"],
+    imageUrls: ["/assets/images/sample1.jpg"],
     itinerary: [{ location: "Thailand" }],
     tags: ["Adventure", "Culture"],
     travelStyle: "Solo",
@@ -222,7 +222,7 @@ export const allTrips = [
   {
     id: 2,
     name: "French Reverie",
-    imageUrls: ["/sample2.jpg"],
+    imageUrls: ["/assets/images/sample2.jpg"],
     itinerary: [{ location: "Paris" }],
     tags: ["Relaxation", "Culinary"],
     travelStyle: "Family",
@@ -231,7 +231,7 @@ export const allTrips = [
   {
     id: 3,
     name: "Zen break",
-    imageUrls: ["/sample3.jpg"],
+    imageUrls: ["/assets/images/sample3.jpg"],
     itinerary: [{ location: "Japan" }],
     tags: ["Shopping", "Luxury"],
     travelStyle: "Couple",
@@ -240,7 +240,7 @@ export const allTrips = [
   {
     id: 4,
     name: "Adventure in Westeros",
-    imageUrls: ["/sample4.jpg"],
+    imageUrls: ["/assets/images/sample4.jpg"],
     itinerary: [{ location: "Croatia" }],
     tags: ["Historical", "Culture"],
     travelStyle: "Friends",

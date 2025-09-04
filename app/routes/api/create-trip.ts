@@ -81,12 +81,12 @@ export const action = async ({ request }: ActionFunctionArgs) => {
             },
             "itinerary": [
                 {
-                "day": 1,
-                "location": "City/Region Name",
-                "accommodation": {
-                    "area": "Recommended neighborhood",
-                    "type": "Hotel/hostel/etc type",
-                    "priceRange": "$X-Y per night"
+                    "day": 1,
+                    "location": "City/Region Name",
+                    "accommodation": {
+                        "area": "Recommended neighborhood",
+                        "type": "Hotel/hostel/etc type",
+                        "priceRange": "$X-Y per night"
                 },
                 "activities": [
                     {

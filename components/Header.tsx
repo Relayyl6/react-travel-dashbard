@@ -32,7 +32,7 @@ const Header = ({ title, description, ctaText, ctaUrl }: HeaderProps ) => {
               className="!bg-primary-100 !flex !px-4 !rounded-lg !items-center !justify-center !mx-auto !gap-1.5 !shadow-none !h-11 !w-full md:w-[240px]"
             >
               <img
-                src="./public/assets/icons/plus.svg"
+                src="./assets/icons/plus.svg"
                 alt="add trip"
                 className="size-5"
               />

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons'
-import { Link, redirect } from 'react-router'
+import { Link, redirect, useNavigate } from 'react-router'
 import { signUpWithGoogleEmail } from '~/appwrite/auth'
 import { account } from '~/appwrite/client';
 import { useForm } from 'react-hook-form';
@@ -8,19 +8,37 @@ import { useForm } from 'react-hook-form';
 
 const SignUpWithEmail = () => {
 
-    const { register, handleSubmit, formState : { errors } } = useForm()
+    const { register, handleSubmit, formState : { errors } } = useForm();
+
+    const navigate = useNavigate();
 
     // const buttonAction = () => {
     //     signUpWithGoogleEmail(register('email').value, register('password').value, register('username').value)
     // }
-    console.log
+    // console.log
 
-    const onSubmit = async (data) => {
+    // <form onSubmit={(e) => {
+    //   e.preventDefault();
+    //   const formData = new FormData(e.currentTarget);
+    //   onSubmit({
+    //     email: formData.get("email") as string,
+    //     password: formData.get("password") as string,
+    //     username: formData.get("username") as string,
+    //   });
+    // }}>
+
+    const onSubmit = async (data: { email: string, name: string, password: string }) => {
         try {
             console.log("Form data submitted:", data);
-            await signUpWithGoogleEmail(data.email, data.password, data.username);
-            console.log("Sign up successful, redirecting to dashboard...");
-            return redirect('/dashboard'); // Change to your dashboard route
+
+            const { user, session } = await signUpWithGoogleEmail(
+                data.email,
+                data.password,
+                data.username
+        );
+
+            console.log("Sign up successful:", user, session);
+            navigate("/dashboard");
         } catch (error) {
             console.error("Error during sign up:", error);
         }

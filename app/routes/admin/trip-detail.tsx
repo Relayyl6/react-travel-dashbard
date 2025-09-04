@@ -5,8 +5,8 @@ import { getTripById } from '~/appwrite/trips';
 import { parseTripData } from 'assets/lib/utils';
 // import type { Route } from './+types/trip-detail';
 // // :id -> params.id -> 123
-import type { Route } from './+types/trip-detail';
-import { Header } from 'components';
+import type { Route, DayPlan } from './+types/trip-detail';
+import { Header, InfoPhil } from 'components';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     const { tripId } = params;
@@ -19,9 +19,27 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 }
 
 const TripDetails = ({ loaderData }: Route.ComponentProps) => {
-    const tripData = parseTripData(loaderData?.trip);
+    // console.log("Loader Data:", loaderData?.tripDetail?.itinerary?.[0]?.day);
 
-    const { name } = tripData || {};
+    const tripData = parseTripData(loaderData?.tripDetail);
+
+    const {
+      name,
+      description,
+      estimatedPrice,
+      duration,
+      budget,
+      travelStyle,
+      country,
+      interests,
+      groupType,
+      bestTimeToVisit,
+      weatherInfo,
+      location,
+      practicalInfo,
+      itinerary,
+      alternatives
+    } = tripData || {};
 
   return (
     <main className='flex flex-col gap-10 pb-20 wrapper'>
@@ -36,6 +54,19 @@ const TripDetails = ({ loaderData }: Route.ComponentProps) => {
             {name}
           </h1>
         </header>
+
+        {/* <Info */}
+        <InfoPhil
+          text={`${duration} day plan`}
+          image="/assets/icons/calendar.svg"
+        />
+
+        <InfoPhil
+          text={itinerary?.slice(0, 2).map(
+            (item: DayPlan) => item.location).join(", ") || ''
+          }
+          image="/assets/icons/location-mark.svg"
+        />
       </section>
     </main>
   )

@@ -243,7 +243,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
               className='!h-12 !w-full !bg-primary-100 !px-4 !rounded-lg !flex !items-center !justify-center !mx-auto !gap-1.5 !shadow-none'
               disabled={loading}>
                 <img
-                  src={`/public/assets/icons/${loading ? "loader.svg" : "magic-star.svg"}`}
+                  src={`/assets/icons/${loading ? "loader.svg" : "magic-star.svg"}`}
                   className={cn('size-5', { 'animate-spin': loading })}
                   alt="loader..."
                 />

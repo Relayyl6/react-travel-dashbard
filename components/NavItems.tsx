@@ -20,7 +20,7 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
         {/* // link-logo: flex items-center gap-1.5 py-10 border-b border-light-100 // any h1 within: text-base md:text-2xl font-bold text-dark-100 */}
         <Link to='/' className="link-logo"> 
             <img 
-                src="/public/assets/icons/logo.svg"
+                src="/assets/icons/logo.svg"
                 alt="logo"
                 className="size-[30px]"
                 />
@@ -67,7 +67,7 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
 
                 <button onClick={handleLogout} className="cursor-pointer">
                     <img 
-                        src="/public/assets/icons/logout.svg"
+                        src="/logout.svg"
                         alt="logout"
                         className="size-6"
                         />

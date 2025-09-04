@@ -25,10 +25,10 @@ const TripCard = ({ id, name, imageUrl, location, tags, price }: TripCardProps) 
         <h2>{name}</h2>
         <figure>
           <img
-            src="/public/assets/icons/location-mark.svg"
+            src="/assets/icons/location-mark.svg"
             alt="location"
             className='size-4'
-            />
+          />
           <figcaption>
             {location}
           </figcaption>

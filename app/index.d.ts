@@ -42,18 +42,67 @@ declare interface PillProps {
 declare interface Activity {
   time: string;
   description: string;
+  specificDetails: string;
+  estimatedCost: string;
+  duration: string;
 }
 
-declare interface DayPlan {
+declare interface Transportation {
+  method: string;
+  cost: string;
+  tips: string;
+}
+
+declare interface Accommodation {
+  area: string;
+  type: string;
+  priceRange: string;
+}
+
+interface DayPlan {
   day: number;
   location: string;
+  accommodation: Accommodation;
   activities: Activity[];
+  transportation: Transportation;
+  totalDayCost: string;
 }
 
 declare interface Location {
   city: string;
   coordinates: [number, number];
   openStreetMap: string;
+}
+
+declare interface BudgetBreakdown {
+  accommodation: string;
+  food: string;
+  activities: string;
+  transport: string;
+}
+
+declare interface EmergencyContacts {
+  police: string;
+  embassy: string;
+  medical: string;
+}
+
+declare interface PracticalInfo {
+  budgetBreakdown: BudgetBreakdown;
+  packingEssentials: string[];
+  localCustoms: string[];
+  emergencyContacts: EmergencyContacts;
+}
+
+declare interface budgetAdjustments {
+  lowerBudget: string;
+  higherBudget: string;
+}
+
+declare interface Alternatives {
+  weatherBackup: string[];
+  budgetAdjustments: budgetAdjustments;
+  extendedStay: string[];
 }
 
 declare interface Trip {
@@ -73,6 +122,8 @@ declare interface Trip {
   weatherInfo: string[];
   location: Location;
   payment_link: string;
+  practicalInfo: PracticalInfo;
+  alternatives: Alternatives;
 }
 
 declare interface TripCardProps {
