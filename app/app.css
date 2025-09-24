@@ -344,7 +344,7 @@
     article {
       @apply flex flex-col gap-3.5 w-full;
     }
-  }
+  }link-logo
   .nav-items {
     @apply flex flex-col px-6 h-full;
     .container {

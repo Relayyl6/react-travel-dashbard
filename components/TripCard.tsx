@@ -53,8 +53,9 @@ const TripCard = ({ id, name, imageUrl, location, tags, price }: TripCardProps) 
         </ChipListComponent>
       </div>
       
+      {/* console.log("🔍 ~  ~ components/TripCard.tsx:55 ~ variable:", variable); */}
       {/* // tripCard-pill: bg-white py-1 px-2.5 w-fit rounded-[20px] absolute top-2.5 right-4 text-dark-100 text-sm font-semibold */}
-      <article className='tripCard-pill'>
+      <article className='bg-white py-1 px-2.5 w-fit rounded-[20px] absolute top-2.5 right-4 text-dark-100 text-sm font-semibold'>
         {price}
       </article>
     </Link>

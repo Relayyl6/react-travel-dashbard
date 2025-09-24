@@ -109,6 +109,7 @@ declare interface Trip {
   id: string;
   name: string;
   description: string;
+  rating: string;
   estimatedPrice: string;
   duration: number;
   budget: string;
@@ -116,7 +117,7 @@ declare interface Trip {
   interests: string;
   groupType: string;
   country: string;
-  imageUrls: string[];
+  imageUrl: string[];
   itinerary: DayPlan[];
   bestTimeToVisit: string[];
   weatherInfo: string[];

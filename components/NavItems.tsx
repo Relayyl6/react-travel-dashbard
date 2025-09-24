@@ -16,26 +16,26 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
 
   return (
     // nav-items: flex flex-col px-6 h-full // any .container within: flex flex-col justify-between h-full // any nav within: flex flex-col gap-3.5 pt-9
-    <section className="nav-items"> 
+    <section className="flex flex-col px-6 h-full">
         {/* // link-logo: flex items-center gap-1.5 py-10 border-b border-light-100 // any h1 within: text-base md:text-2xl font-bold text-dark-100 */}
-        <Link to='/' className="link-logo"> 
-            <img 
+        <Link to='/' className="flex items-center gap-1.5 py-7 border-b border-light-100"> 
+            <img
                 src="/assets/icons/logo.svg"
                 alt="logo"
                 className="size-[30px]"
                 />
-            <h1>Tour Leroy</h1>
+            <h1 className="text-base md:text-2xl font-bold text-dark-100">Tour Leroy</h1>
         </Link>
         {/* // container: flex flex-col gap-9 mt-2.5 // any div within: flex items-center gap-5 */}
-        <div className="container"> 
-            <nav>
+        <div className="flex flex-col justify-between h-full">
+            <nav className="flex flex-col gap-3.5 pt-9">
                 {
                     sidebarItems.map(
                         ({ id, icon, label, href }) => (
                             <NavLink to={href} key={id}>
                                 {
                                     ({ isActive }: { isActive: boolean }) => (
-                                        <div className={cn('group nav-item', {'bg-primary-100 !text-white': isActive})} onClick={handleClick}> 
+                                        <div className={cn('group flex items-center text-xs md:text-lg font-normal cursor-pointer gap-2.5 py-[18px] px-3.5 rounded-lg text-dark-200 hover:bg-primary-100 hover:text-white', {'bg-primary-100 !text-white': isActive})} onClick={handleClick}> 
                                             <img
                                                 src={icon}
                                                 alt="label"
@@ -56,7 +56,8 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
                 <img
                     src={user?.imageUrl || null}
                     alt={user?.name || 'David'}
-                    referrerPolicy="no-referrer"/>
+                    referrerPolicy="no-referrer"
+                />
 
                 <article>
                     {/* // from nav-footer: text-sm md:text-base font-semibold text-dark-200 truncate */}
@@ -67,7 +68,7 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
 
                 <button onClick={handleLogout} className="cursor-pointer">
                     <img 
-                        src="/logout.svg"
+                        src="/assets/icons/logout.svg"
                         alt="logout"
                         className="size-6"
                         />

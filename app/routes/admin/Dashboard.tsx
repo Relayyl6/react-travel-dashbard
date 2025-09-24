@@ -1,16 +1,46 @@
 import { Header, StatsCard, TripCard } from "components";
 import { getUser } from "~/appwrite/auth";
-import { dashboardStats, allTrips } from "~/constants";
+// import { dashboardStats, allTrips } from "~/constants";
+// import { allTrips } from "~/constants";
 import type { Route } from './+types/Dashboard'
+import { getUsersandTripStats } from "~/appwrite/dashboard";
+import { getAllTrips } from "~/appwrite/trips";
+import { parseTripData } from "assets/lib/utils";
 
-const { totalUsers, usersJoined, totalTrips, tripsCreated, userRole } = dashboardStats;
+// interface Prop {
+//   id: number;
+//   name: string;
 
-export const clientLoader = async () => await getUser();
+// }
+
+// const { totalUsers, usersJoined, totalTrips, tripsCreated, userRole } = dashboardStats;
+
+export const clientLoader = async () => {
+  const [ user, dashboardStats, allTrips ] = await Promise.all([
+    getUser(),
+    getUsersandTripStats(),
+    getAllTrips(4, 0)
+  ])
+
+  return {
+    user,
+    dashboardStats,
+    allTrips: allTrips.allTrips.map(({ $id, tripDetail, imageUrl }) => ({
+        id: $id,
+        ...parseTripData(tripDetail),
+        imageUrl: imageUrl ?? []
+      }
+    ))
+  }
+};
 
 const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
-  const user = loaderData as unknown as User | null;
+  const user = loaderData.user as unknown as User | null;
+  const { totalUsers, usersJoined, userRole, totalTrips, tripsCreated } = loaderData.dashboardStats as DashboardStats;
+  const allTrips = loaderData.allTrips;
 
   return (
+
     // dashboard: flex flex-col gap-10 w-full pb-20
     <main className="flex flex-col gap-10 pb-20 w-full max-w-7xl mx-auto px-4 lg:px-8">
         <Header
@@ -43,23 +73,23 @@ const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
         </section>
 
         {/* // container; flex flex-col gap-9 mt-2.5 */}
-        <section className="container">
+        <section className="flex flex-col gap-9 mt-2.5">
           <h1 className="text-xl font-semibold text-dark-100">
             Created Trips
           </h1>
           {/* // trip-grid: grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-7 */}
-          <div className="trip-grid">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-7">
             {
-              allTrips.slice(0, 4).map(
-                ({ id, name, imageUrls, itinerary, tags, travelStyle, estimatedPrice }) => (
+              allTrips.map(
+                ({ id, name, imageUrl, itinerary, interests, travelStyle, estimatedPrice }) => (
                   <TripCard
                     key={id}
                     id={id.toString()}
-                    name={name}
-                    imageUrl={imageUrls[0]}
+                    name={name as string}
+                    imageUrl={imageUrl[0]}
                     location={itinerary?.[0]?.location ?? ''}
-                    tags={tags}
-                    price={estimatedPrice}
+                    tags={[interests, travelStyle] as string[]}
+                    price={estimatedPrice as string}
                     />
                 )
               )

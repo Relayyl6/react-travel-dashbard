@@ -39,9 +39,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
             "country": "${country}",
             "interests": ${interest},
             "groupType": "${groupType}",
+            "rating": "A precise rating on the location as a ratio of 5 eg '4.5'. must no exceed 5"
             "bestTimeToVisit": [
                 "🌸 Season (from month to month): reason to visit",
-                "☀️ Season (from month to month): reason to visit", 
+                "☀️ Season (from month to month): reason to visit",
                 "🍁 Season (from month to month): reason to visit",
                 "❄️ Season (from month to month): reason to visit"
             ],
@@ -81,13 +82,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
             },
             "itinerary": [
                 {
-                    "day": 1,
-                    "location": "City/Region Name",
-                    "accommodation": {
+                "day": 1,
+                "location": "City/Region Name",
+                "accommodation": {
                         "area": "Recommended neighborhood",
                         "type": "Hotel/hostel/etc type",
                         "priceRange": "$X-Y per night"
-                },
+                    },
                 "activities": [
                     {
                         "time": "Morning", 
@@ -112,10 +113,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
                     }
                 ],
                 "transportation": {
-                    "method": "How to get between locations",
-                    "cost": "$X estimated",
-                    "tips": "Practical transport advice"
-                },
+                        "method": "How to get between locations",
+                        "cost": "$X estimated",
+                        "tips": "Practical transport advice"
+                    },
                 "totalDayCost": "$X estimated"
                 }
             ],
@@ -195,5 +196,4 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     } catch (error) {
         console.error("Error generating Travel Plan", error)
     }
-
 }
