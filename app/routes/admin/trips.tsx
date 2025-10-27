@@ -78,6 +78,7 @@ const Trips = ({ loaderData }: Route.ComponentProps) => {
               handlePageChange(args.currentPage)
             }
           }
+          cssClass='!mb-8'
         />
       </section>
     </main>

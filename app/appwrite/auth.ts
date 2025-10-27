@@ -58,35 +58,65 @@ export const logoutUser = async () => {
 
 export const getGooglePicture = async (accessToken: string) => {
     try {
-        const session = await account.getSession('current')
-
-        // const oAuthToken = session.providerAccessToken;
-
+        // Remove the redundant session call since we already have the token
         if (!accessToken) {
-            console.log("No oAuth token available");
+            console.log("No access token provided");
             return null;
         }
 
+        // console.log('Attempting to fetch Google profile picture...');
+
         const response = await fetch(
-            'https://people.googleapis.com/v1/people/me?personFields=photo',
+            'https://people.googleapis.com/v1/people/me?personFields=photos',
             {
                 headers: {
-                    Authorization: `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json'
                 }
             }
         );
 
-        if (!response.ok) throw new Error("Failed to fetch profile photo from Google People API");
+        // console.log('Google API response status:', response.status);
 
-        const { photos } = await response.json();
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`❌ Google API error (${response.status}):`, errorText);
+            
+            // Handle specific error cases
+            if (response.status === 401) {
+                console.error('🔐 Access token is invalid or expired');
+            } else if (response.status === 403) {
+                console.error('🚫 Insufficient permissions for Google People API');
+            }
+            
+            return null;
+        }
 
-        // extracting the photo URL form the response
-        return photos?.[0].url || null;
+        const data = await response.json();
+        // console.log('Google API response data:', data);
+
+        // Check if photos exist in the response
+        if (!data.photos || !Array.isArray(data.photos) || data.photos.length === 0) {
+            console.log('No photos found in Google profile');
+            return null;
+        }
+
+        const photoUrl = data.photos[0]?.url;
+        // console.log('Profile picture URL:', photoUrl);
+
+        return photoUrl || null;
+
     } catch (error) {
-        console.log('Error fetching Google Picture', error);
+        console.error('Error fetching Google Picture:', error);
+        
+        // Log more details about the error
+        if (error instanceof TypeError && error.message.includes('fetch')) {
+            console.error('Network error - check internet connection');
+        }
+        
         return null;
     }
-}
+};
 
 export const storeUserData = async () => {
     try {

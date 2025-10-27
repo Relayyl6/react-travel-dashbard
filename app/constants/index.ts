@@ -9,16 +9,34 @@ export const sidebarItems = [
     href: "/dashboard",
   },
   {
-    id: 3,
+    id: 2,
     icon: "/assets/icons/users.svg",
     label: "All Users",
     href: "/all-users",
   },
   {
-    id: 4,
+    id: 3,
     icon: "/assets/icons/itinerary.svg",
     label: "AI Trips",
     href: "/trips",
+  },
+  {
+    id: 4,
+    icon: "/assets/icons/itinerary.svg",
+    label: "History",
+    href: "/history",
+  },
+  {
+    id: 5,
+    icon: "/assets/icons/itinerary.svg",
+    label: "Catalogue",
+    href: "/catalogue",
+  },
+  {
+    id: 6,
+    icon: "/assets/icons/itinerary.svg",
+    label: "Recommmendation",
+    href: "/recommendation",
   },
 ];
 
@@ -115,7 +133,7 @@ export const comboBoxItems = {
 export const footers = ["Terms & Condition", "Privacy Policy"];
 
 export const userXAxis: AxisModel = { valueType: "Category", title: "Day" };
-export const useryAxis: AxisModel = {
+export const userYAxis: AxisModel = {
   minimum: 0,
   maximum: 10,
   interval: 2,

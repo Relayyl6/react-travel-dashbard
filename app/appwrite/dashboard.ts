@@ -91,3 +91,30 @@ export const getUsersandTripStats = async (): Promise<DashboardStats> => {
         }
     }
 }
+
+
+export const getUserGrowthPerDay = async () => {
+    const users = await database.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.userCollectionId
+    )
+
+    const userGrowth = users.documents.reduce(( acc: { [key: string]: number }, user: Document ) => {
+        const date = new Date(user.joinedAt);
+        const day = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+        acc[day] = (acc[day] || 0) + 1;
+
+        return acc
+    }, {});
+
+    return Object.entries(userGrowth).map(([day, count]) => ({
+        count: Number(count),
+        day
+    }));
+}
+
+
+export const getTripsByTravelStyle =  async () => {
+
+}

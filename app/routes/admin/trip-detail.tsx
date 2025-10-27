@@ -278,16 +278,9 @@ const TripDetails = ({ loaderData }: Route.ComponentProps) => {
             </h4>
             <p className='text-base md:text-lg font-normal'>
               Accomodation: {practicalInfo?.budgetBreakdown.accommodation}
-            </p>
-            <p className='text-base md:text-lg font-normal'>
               food: {practicalInfo?.budgetBreakdown.food}
-            </p>
-            <p className='text-base md:text-lg font-normal'>
               activities:  {practicalInfo?.budgetBreakdown.activities}
-            </p>
-            <p className='text-base md:text-lg font-normal'>
               transport: {practicalInfo?.budgetBreakdown.transport}
-            </p>
           </div>
         </article>
       </section> */}

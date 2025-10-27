@@ -1,43 +1,51 @@
 import { Header, StatsCard, TripCard } from "components";
-import { getUser } from "~/appwrite/auth";
+import { getAllUsers, getUser } from "~/appwrite/auth";
 // import { dashboardStats, allTrips } from "~/constants";
 // import { allTrips } from "~/constants";
 import type { Route } from './+types/Dashboard'
-import { getUsersandTripStats } from "~/appwrite/dashboard";
+import { getUsersandTripStats, getUserGrowthPerDay, getTripsByTravelStyle } from "~/appwrite/dashboard";
 import { getAllTrips } from "~/appwrite/trips";
 import { parseTripData } from "assets/lib/utils";
-
-// interface Prop {
-//   id: number;
-//   name: string;
-
-// }
-
-// const { totalUsers, usersJoined, totalTrips, tripsCreated, userRole } = dashboardStats;
+import { ChartComponent, ColumnSeries, Inject, SplineAreaSeries, Category, DataLabel, Tooltip } from "@syncfusion/ej2-react-charts";
+import { userXAxis, userYAxis } from "~/constants";
 
 export const clientLoader = async () => {
-  const [ user, dashboardStats, allTrips ] = await Promise.all([
+  const [ user, dashboardStats, allTrips, userGrowth, tripsByTravelStyle, allUsers ] = await Promise.all([
     getUser(),
     getUsersandTripStats(),
-    getAllTrips(4, 0)
+    getAllTrips(4, 0),
+    getUserGrowthPerDay(),
+    getTripsByTravelStyle(),
+    getAllUsers(4, 0)
   ])
 
-  return {
-    user,
-    dashboardStats,
-    allTrips: allTrips.allTrips.map(({ $id, tripDetail, imageUrl }) => ({
+  const trips = allTrips.allTrips.map(({ $id, tripDetail, imageUrl }) => ({
         id: $id,
         ...parseTripData(tripDetail),
         imageUrl: imageUrl ?? []
       }
-    ))
+    ));
+
+    const mappedUsers: UsersItineraryCount[] = allUsers.users.map((user) => ({
+      imageUrl: user.imageUrl,
+      name: user.name,
+      count: user.itineraryCount,
+    }))
+
+  return {
+    user,
+    dashboardStats,
+    userGrowth,
+    tripsByTravelStyle,
+    allTrips: trips,
+    users: mappedUsers
   }
 };
 
 const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
   const user = loaderData.user as unknown as User | null;
   const { totalUsers, usersJoined, userRole, totalTrips, tripsCreated } = loaderData.dashboardStats as DashboardStats;
-  const allTrips = loaderData.allTrips;
+  const { allTrips, userGrowth, tripsByTravelStyle, users } = loaderData;
 
   return (
 
@@ -85,16 +93,38 @@ const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
                   <TripCard
                     key={id}
                     id={id.toString()}
-                    name={name as string}
+                    name={name!}
                     imageUrl={imageUrl[0]}
                     location={itinerary?.[0]?.location ?? ''}
-                    tags={[interests, travelStyle] as string[]}
-                    price={estimatedPrice as string}
+                    tags={[interests!, travelStyle!]}
+                    price={estimatedPrice!}
                     />
                 )
               )
             }
           </div>
+        </section>
+
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <ChartComponent
+            id="chart-1"
+            primaryXAxis={userXAxis}
+            primaryYAxis={userYAxis}
+            tooltip={{ enable: true }}
+            title="User Growth Over Time"
+            height='350px'>
+            <Inject
+              services={
+                [
+                  ColumnSeries,
+                  SplineAreaSeries,
+                  Category,
+                  DataLabel,
+                  Tooltip,
+                ]
+              }
+            />
+          </ChartComponent>
         </section>
     </main>
   )

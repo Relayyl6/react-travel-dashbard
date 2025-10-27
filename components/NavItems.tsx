@@ -1,12 +1,73 @@
 import { cn } from "assets/lib/utils"
 import { Link, NavLink, useLoaderData, useNavigate } from "react-router"
-import { logoutUser } from "~/appwrite/auth";
+import { getGooglePicture, logoutUser } from "~/appwrite/auth";
+import { account } from "~/appwrite/client";
 import { sidebarItems } from "~/constants"
+// import type { Route } from "../app/+types/root";
+
+type LoaderData = {
+    user: { name: string; email: string; imageUrl?: string } | null;
+    url: string | undefined;
+}
+
+// export const clientLoader = async () => {
+//     try {
+//         const [ user, session ] = await Promise.all([
+//         account.get(),
+//         account.getSession('current')
+//     ])
+//     console.log(user)
+//     console.log(session)
+//     // const session = await account.getSession('current')
+
+//     if (!user || !user.$id) {
+//         console.log('❌ No authenticated user found');
+//         return {
+//             user: null,
+//             url: undefined
+//         };
+//     }
+
+//     const accessToken = session?.providerAccessToken;
+//     console.log('access token: ', accessToken);
+//     let url;
+//     if (accessToken) {
+//         try {
+//             url = await getGooglePicture(accessToken);
+//             console.log('profile picture url: ', url);
+//         } catch (urlError) {
+//             console.error('Error getting Google picture:', urlError);
+//             url = undefined;
+//         }
+//     } else {
+//         console.log('⚠️ No access token available for Google picture');
+//     }
+//     // const url = await getGooglePicture(accessToken || '');
+
+//     // const user = await account.get()
+//     const result = { user, url };
+//     console.log('✅ ClientLoader returning:', result);
+    
+//     return result;
+//     } catch (error: any) {
+//         console.error('Error in clientLoader: ', error);
+//         if (error.code === 401 || error.message?.includes('unauthorized')) {
+//             console.log('🔐 Authentication error - user needs to log in');
+//         }
+//         return {
+//             user: undefined,
+//             url: undefined
+//         }
+//     }
+// }
 
 const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
     // hardocding temporary user data
-
-    const user = useLoaderData();
+    // console.log(loaderData);
+    // const { user, url } = loaderData as unknown as { user: { name: string; email: string; imageUrl?: string }; url: string | undefined };
+    const { user, url } = useLoaderData() as LoaderData;
+    // console.log(user)
+    console.log(url);
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -54,7 +115,7 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
             {/* // nav-footer: flex items-center gap-2.5 pb-8 // any img within: size-10 rounded-full aspect-square // any article within: flex flex-col gap-[2px] max-w-[115px] */}
             <footer className="nav-footer">  
                 <img
-                    src={user?.imageUrl || null}
+                    src={url || undefined}
                     alt={user?.name || 'David'}
                     referrerPolicy="no-referrer"
                 />
