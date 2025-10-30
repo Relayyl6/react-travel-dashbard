@@ -1,5 +1,6 @@
 import { user } from "~/constants";
 import { appwriteConfig, database } from "./client";
+import { parseTripData } from "assets/lib/utils";
 
 interface Document {
     [key: string]: any
@@ -116,5 +117,26 @@ export const getUserGrowthPerDay = async () => {
 
 
 export const getTripsByTravelStyle =  async () => {
+    const trips = await database.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.tripCollectionId
+    );
 
+    const travelStyleCounts = trips.documents.reduce(
+        (acc: { [key: string]: number }, trip: Document) => {
+            const tripDetail = parseTripData(trip.tripDetail);
+
+            if (tripDetail && tripDetail.travelStyle) {
+                const travelStyle = tripDetail.travelStyle;
+                acc[travelStyle] = (acc[travelStyle] || 0) + 1;
+            }
+            return acc;
+        },
+        {}
+    );
+
+    return Object.entries(travelStyleCounts).map(([travelStyle, count]) => ({
+        count: Number(count),
+        travelStyle,
+    }));
 }

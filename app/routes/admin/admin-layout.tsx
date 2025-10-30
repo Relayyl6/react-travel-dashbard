@@ -4,7 +4,7 @@ import { SidebarComponent } from '@syncfusion/ej2-react-navigations';
 import { NavItems, MobileSidebar } from 'components';
 import { redirect } from 'react-router';
 import { account } from '~/appwrite/client';
-import { getExistingUser, getGooglePicture, storeUserData } from '~/appwrite/auth';
+import { getAllUsers, getExistingUser, getGooglePicture, storeUserData } from '~/appwrite/auth';
 
 
 export async function clientLoader() {
@@ -13,6 +13,7 @@ export async function clientLoader() {
           account.get(),
           account.getSession('current')
       ])
+
       if (!session) {
         console.log('No active sessions found')
         return redirect('/sign-in');
@@ -26,7 +27,7 @@ export async function clientLoader() {
       if (accessToken) {
           try {
               url = await getGooglePicture(accessToken);
-              console.log('profile picture url: ', url);
+            //   console.log('profile picture url: ', url);
           } catch (urlError) {
               console.error('Error getting Google picture:', urlError);
               url = undefined;
@@ -40,17 +41,22 @@ export async function clientLoader() {
       // if (existingUser?.status === 'user') {
       //   return redirect('/'); // this route is for normal users, not admins
       // }
+      const { users, total } = await getAllUsers(10, 0);
 
       if (existingUser?.$id) {
             return {
                 user: existingUser, // Use 'user' key, not 'existingUser'
-                url
+                url,
+                users,
+                total
             };
         } else {
             const newUser = await storeUserData();
             return {
                 user: newUser, // Ensure storeUserData() returns user data
-                url
+                url,
+                users,
+                total
             };
         }
   } catch (error) {

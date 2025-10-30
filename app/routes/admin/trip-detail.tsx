@@ -219,9 +219,9 @@ const TripDetails = ({ loaderData }: Route.ComponentProps) => {
                         (activity: Activity, index: number) => (
                           <li key={index} className='flex max-sm:flex-col flex-row justify-between sm:gap-7 gap-3 text-sm md:text-lg font-normal text-dark-400 !list-disc'>
                             <span className='flex-shring-0 text-[14px] md:text-[18px] leading-[14px] md:leading-[16px] font-semibold'>
-                              <span className="flex flex-col md:flex-row gap-7">
+                              <span className="flex flex-col md:flex-row gap-7 justify-between">
                                 <p className='flex-grow md:text-xl'>{activity.time}</p>
-                                <p className="md:text-base text-gray-100 font-normal">{activity.description}</p>
+                                <p className="md:text-base text-gray-100 font-normal bg-gray-300 rounded-xl max-w-110 truncate px-1 py-1">{activity.description}</p>
                               </span>
                               <p className="text-base">{activity.specificDetails} Your budget should be around {activity.estimatedCost}. It should last for {activity.duration}</p>
                             </span>
@@ -305,6 +305,7 @@ const TripDetails = ({ loaderData }: Route.ComponentProps) => {
           }
         </div>
       </section>
+
     </main>
   )
 }

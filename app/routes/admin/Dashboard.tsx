@@ -6,8 +6,10 @@ import type { Route } from './+types/Dashboard'
 import { getUsersandTripStats, getUserGrowthPerDay, getTripsByTravelStyle } from "~/appwrite/dashboard";
 import { getAllTrips } from "~/appwrite/trips";
 import { parseTripData } from "assets/lib/utils";
-import { ChartComponent, ColumnSeries, Inject, SplineAreaSeries, Category, DataLabel, Tooltip } from "@syncfusion/ej2-react-charts";
-import { userXAxis, userYAxis } from "~/constants";
+import { ChartComponent, ColumnSeries, Inject, SplineAreaSeries, Category, DataLabel, Tooltip, SeriesCollectionDirective, SeriesDirective } from "@syncfusion/ej2-react-charts";
+import { tripXAxis, tripYAxis, userXAxis, userYAxis } from "~/constants";
+import { ColumnsDirective, ColumnDirective, GridComponent } from '@syncfusion/ej2-react-grids';
+// import AllUsers from "./all-users";
 
 export const clientLoader = async () => {
   const [ user, dashboardStats, allTrips, userGrowth, tripsByTravelStyle, allUsers ] = await Promise.all([
@@ -19,6 +21,8 @@ export const clientLoader = async () => {
     getAllUsers(4, 0)
   ])
 
+  console.log(tripsByTravelStyle);
+
   const trips = allTrips.allTrips.map(({ $id, tripDetail, imageUrl }) => ({
         id: $id,
         ...parseTripData(tripDetail),
@@ -29,7 +33,7 @@ export const clientLoader = async () => {
     const mappedUsers: UsersItineraryCount[] = allUsers.users.map((user) => ({
       imageUrl: user.imageUrl,
       name: user.name,
-      count: user.itineraryCount,
+      count: user.itineraryCount ?? Math.floor(Math.random() * 10),
     }))
 
   return {
@@ -46,6 +50,29 @@ const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
   const user = loaderData.user as unknown as User | null;
   const { totalUsers, usersJoined, userRole, totalTrips, tripsCreated } = loaderData.dashboardStats as DashboardStats;
   const { allTrips, userGrowth, tripsByTravelStyle, users } = loaderData;
+
+  const trips = allTrips.map((trip) => (
+    {
+      imageUrl: trip.imageUrl[0],
+      name: trip.name,
+      interests: trip.interests
+    }
+  ))
+
+  const usersAndTrips = [
+    {
+      title: "Latest User signups",
+      dataSource: users,
+      field: "count",
+      headerText: "Trips created"
+    },
+    {
+      title: "Trips based on Interests",
+      dataSource: trips,
+      field: "interests",
+      headerText: "Interests"
+    }
+  ]
 
   return (
 
@@ -112,7 +139,7 @@ const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
             primaryYAxis={userYAxis}
             tooltip={{ enable: true }}
             title="User Growth Over Time"
-            height='350px'>
+            >
             <Inject
               services={
                 [
@@ -124,8 +151,101 @@ const Dashboard = ({ loaderData }: Route.ComponentProps ) => {
                 ]
               }
             />
+
+            <SeriesCollectionDirective>
+              <SeriesDirective
+                dataSource={userGrowth}
+                xName="day"
+                yName="count"
+                type="Column"
+                name="Column"
+                columnWidth={0.3}
+                cornerRadius={{ topLeft: 10, topRight: 10 }}
+              />
+
+              <SeriesDirective
+                dataSource={userGrowth}
+                xName="day"
+                yName="count"
+                type="SplineArea"
+                name="wave"
+                fill="rgba(71, 132, 238, 0.3)"
+                border={{ width: 2, color: '#4784EE' }}
+              />
+            </SeriesCollectionDirective>
           </ChartComponent>
+
+          <ChartComponent
+            id="chart-2"
+            primaryXAxis={tripXAxis}
+            primaryYAxis={tripYAxis}
+            tooltip={{ enable: true }}
+            title="Trip trend Over Time"
+            >
+            <Inject
+              services={
+                [
+                  ColumnSeries,
+                  SplineAreaSeries,
+                  Category,
+                  DataLabel,
+                  Tooltip,
+                ]
+              }
+            />
+
+            <SeriesCollectionDirective>
+              <SeriesDirective
+                dataSource={tripsByTravelStyle}
+                xName="travelStyle"
+                yName="count"
+                type="Column"
+                name="day"
+                columnWidth={0.3}
+                cornerRadius={{ topLeft: 10, topRight: 10 }}
+              />
+            </SeriesCollectionDirective>
+          </ChartComponent>
+
         </section>
+
+        <section className='pb-20 flex flex-col lg:flex-row gap-5 justify-between wrapper'>
+          {
+            usersAndTrips.map(({ title, dataSource, field, headerText }, index) => (
+              <div key={index} className="flex flex-col gap-5">
+                <h3 className="text-base md:text-[20xp] md:leading-7 font-semibold text-dark-100">{title}</h3>
+
+                <GridComponent dataSource={dataSource} gridLines="None">
+                  <ColumnsDirective>
+                    <ColumnDirective
+                        field="name"
+                        headerText="Name"
+                        width="200"
+                        textAlign="Left"
+                        template={(props: UserData) => (
+                          <div className="flex items-center gap-1.5 px-1.4">
+                            <img
+                              src={props.imageUrl || "/assets/images/david.webp"}
+                              alt="user"
+                              className="rounded-full size-8 aspect-square"
+                              referrerPolicy="no-referrer"
+                            />
+                            <span>{props.name}</span>
+                          </div>
+                      )
+                    }/>
+                    <ColumnDirective
+                        field={field}
+                        headerText={headerText}
+                        width="200"
+                        textAlign="Left"/>
+                  </ColumnsDirective>
+                </GridComponent>
+              </div>
+            ))
+          }
+        </section>
+
     </main>
   )
 }

@@ -1,3 +1,4 @@
+import type { Models } from "appwrite";
 import { cn } from "assets/lib/utils"
 import { Link, NavLink, useLoaderData, useNavigate } from "react-router"
 import { getGooglePicture, logoutUser } from "~/appwrite/auth";
@@ -5,9 +6,11 @@ import { account } from "~/appwrite/client";
 import { sidebarItems } from "~/constants"
 // import type { Route } from "../app/+types/root";
 
-type LoaderData = {
+export type LoaderData = {
     user: { name: string; email: string; imageUrl?: string } | null;
     url: string | undefined;
+    users?: Models.Document[];
+    total?: number;
 }
 
 // export const clientLoader = async () => {
@@ -113,7 +116,7 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
             {/* // nav-item: flex items-cent```er text-xs md:text-lg font-normal cursor-pointer gap-2.5 py-[18px] px-3.5 rounded-lg text-dark-200 hover:bg-primary-100 hover:text-white */}
             {/* note // the NavLink component automatically provides an object to its child function  which contains information about the current navigation state. // this is where isAcive is being destructured from */}
             {/* // nav-footer: flex items-center gap-2.5 pb-8 // any img within: size-10 rounded-full aspect-square // any article within: flex flex-col gap-[2px] max-w-[115px] */}
-            <footer className="nav-footer">  
+            <footer className="nav-footer">
                 <img
                     src={url || undefined}
                     alt={user?.name || 'David'}
@@ -122,13 +125,13 @@ const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
 
                 <article>
                     {/* // from nav-footer: text-sm md:text-base font-semibold text-dark-200 truncate */}
-                    <h2>{user?.name}</h2> 
+                    <h2>{user?.name}</h2>
                     {/* // from nav-footer: text-gray-100 text-xs md:text-sm font-normal truncate */}
-                    <p>{user?.email}</p> 
+                    <p>{user?.email}</p>
                 </article>
 
                 <button onClick={handleLogout} className="cursor-pointer">
-                    <img 
+                    <img
                         src="/assets/icons/logout.svg"
                         alt="logout"
                         className="size-6"

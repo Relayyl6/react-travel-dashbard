@@ -3,15 +3,19 @@ import { ColumnsDirective, ColumnDirective, GridComponent } from '@syncfusion/ej
 import { cn, formatDate } from "assets/lib/utils";
 import { getAllUsers } from "~/appwrite/auth";
 import type { Route } from "./+types/all-users";
+import type { LoaderData } from "components/NavItems";
+import { useLoaderData } from "react-router";
+
 
 export const loader = async () => {
   const { users, total } = await getAllUsers(10, 0);
   return { users, total }
 }
 
-const AllUsers = ({ loaderData }: Route.ComponentProps) => {
 
-  const { users, total } = loaderData;
+const AllUsers = () => {
+
+  const { users, total } = useLoaderData()
 
   return (
     <main className="w-full min-h-screen flex flex-col gap-10 max-w-7xl mx-auto px-4 lg:px-8">

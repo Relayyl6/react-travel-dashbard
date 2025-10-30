@@ -9,12 +9,12 @@ export const appwriteConfig = {
     tripCollectionId: import.meta.env.VITE_APPWRITE_TRIPS_COLLECTION_ID,
 }
 
-console.log('Environment check:', {
-    endpoint: import.meta.env.VITE_APPWRITE_API_ENDPOINT,
-    projectId: import.meta.env.VITE_APPWRITE_PROJECT_ID,
-    hasEndpoint: !!import.meta.env.VITE_APPWRITE_API_ENDPOINT,
-    hasProjectId: !!import.meta.env.VITE_APPWRITE_PROJECT_ID,
-});
+// console.log('Environment check:', {
+//     endpoint: import.meta.env.VITE_APPWRITE_API_ENDPOINT,
+//     projectId: import.meta.env.VITE_APPWRITE_PROJECT_ID,
+//     hasEndpoint: !!import.meta.env.VITE_APPWRITE_API_ENDPOINT,
+//     hasProjectId: !!import.meta.env.VITE_APPWRITE_PROJECT_ID,
+// });
 
 if (!appwriteConfig.endpointUrl) {
     throw new Error('Missing required environment variable: VITE_APPWRITE_API_ENDPOINT');

@@ -88,7 +88,6 @@ export const getGooglePicture = async (accessToken: string) => {
             } else if (response.status === 403) {
                 console.error('🚫 Insufficient permissions for Google People API');
             }
-            
             return null;
         }
 

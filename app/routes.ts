@@ -1,4 +1,4 @@
-import { type RouteConfig, layout, route } from "@react-router/dev/routes";
+import { type RouteConfig, index, layout, route } from "@react-router/dev/routes";
 
 export default [
     route('sign-in', 'routes/root/sign-in.tsx'),
@@ -12,5 +12,8 @@ export default [
         route('trips', 'routes/admin/trips.tsx'), // path: '/trips', file: 'routes/admin/trips.tsx'
         route('trips/create', 'routes/admin/create-trip.tsx'), // path: 'trips/create', file: 'routes/admin/createTrip.tsx'
         route('trips/:tripId', 'routes/admin/trip-detail.tsx')
+    ]), // file: '/routes/admin/admin-layout.tsx', children: []
+    layout('routes/root/page-layout.tsx', [
+        index("routes/root/travel-page.tsx")
     ]) // file: '/routes/admin/admin-layout.tsx', children: []
 ] satisfies RouteConfig;
