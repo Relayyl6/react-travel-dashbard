@@ -10,8 +10,8 @@ export const loginWithGoogle = async () => {
 
         account.createOAuth2Session(
             OAuthProvider.Google,
-            'http://localhost:5173/dashboard',
-            'http://localhost:5173/sign-in',
+            `${window.location.origin}/`,
+            `${window.location.origin}/404`,
             // ['prompt=consent', 'access_type=offline'],
             // '${`window.location.origin`}/404'
         )
